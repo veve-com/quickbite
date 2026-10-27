@@ -11,17 +11,10 @@
 <nav><a href="index.html" class="aktif">Checkout</a><a href="pesanan.html">Pesanan</a></nav>
 <div id="hasil"></div>
 
-<h3>Pelanggan</h3>
-<label>ID pelanggan <input id="pelanggan" value="P-01"></label>
-<div class="bar"><button class="abu" onclick="lihatPelanggan()">Lihat info</button></div>
-<label>Alamat <input id="alamat" placeholder="Klik Lihat info dulu"></label>
-<div class="bar"><button class="abu" onclick="ubahAlamat()">Ubah alamat</button></div>
-
 <h3>Menu</h3>
 <div id="menu"></div>
 
 <label>Token kartu <input id="token" value="tok_123"></label>
-<small>Isi <code>invalid_card</code> untuk simulasi pembayaran gagal.</small>
 <div class="bar">
   <button class="abu" onclick="hitungTotal()">Hitung total</button>
   <button onclick="klikTombolCheckout()">Checkout</button>
@@ -29,22 +22,6 @@
 
 <script src="app.js"></script>
 <script>
-const idPelanggan = () => document.getElementById('pelanggan').value.trim();
-
-async function lihatPelanggan() {
-  const r = await api('GET', '/api/pelanggan/' + encodeURIComponent(idPelanggan()));
-  if (!r.ok) return galat(r);
-  document.getElementById('alamat').value = r.data.alamat;
-  tampilkanHalamanSukses(esc(r.data.info) + '<br>Telepon: ' + esc(r.data.nomorTelepon) +
-    '<br>Alamat: ' + esc(r.data.alamat));
-}
-
-async function ubahAlamat() {
-  const alamat = document.getElementById('alamat').value.trim();
-  const r = await api('PUT', '/api/pelanggan/' + encodeURIComponent(idPelanggan()) + '/alamat', { alamat });
-  if (!r.ok) return galat(r);
-  tampilkanHalamanSukses('Alamat diubah menjadi: ' + esc(r.data.alamat));
-}
 
 async function muatMenu() {
   const r = await api('GET', '/api/menu');

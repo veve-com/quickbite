@@ -15,8 +15,6 @@ public class Pembayaran {
     @JoinColumn(name = "id_pesanan", nullable = false, unique = true)
     private Pesanan pesanan;
 
-    protected Pembayaran() { }
-
     public Pembayaran(String id, Pesanan pesanan, double jumlahBayar,
                       String metode, String statusBayar,
                       String kodeReferensi) {
